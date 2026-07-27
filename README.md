@@ -1,10 +1,15 @@
-# tg-bulk-leave
+# tg-bulk-leave — bulk leave Telegram groups by keyword
 
 [![PyPI](https://img.shields.io/pypi/v/tg-bulk-leave)](https://pypi.org/project/tg-bulk-leave/)
 [![CI](https://github.com/soos3d/tg-bulk-leave/actions/workflows/ci.yml/badge.svg)](https://github.com/soos3d/tg-bulk-leave/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/pypi/pyversions/tg-bulk-leave)](https://pypi.org/project/tg-bulk-leave/)
 
 Bulk-leave Telegram groups and channels whose title matches a keyword.
+
+![tg-bulk-leave: a dry run listing matches, then a limited run leaving three
+chats after a typed confirmation](https://raw.githubusercontent.com/soos3d/tg-bulk-leave/main/docs/demo.gif)
+
+*Recorded against fabricated chats — the pauses between leaves are real.*
 
 Built for the situation where you've accumulated hundreds of chats (partner
 groups, deal rooms, airdrop channels, one-off intro chats) and want them gone

@@ -1,0 +1,17 @@
+#!/bin/sh
+# Recording shim: puts the real command name in the demo GIF while the chats
+# it acts on come from demo/fake_run.py. Everything printed is the shipped
+# code path; only the Telegram client is fabricated. See demo/README.md.
+#
+# Not installed and not shipped. On PATH only inside demo/demo.tape.
+set -eu
+
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+python="$repo/.venv/bin/python"
+
+if [ ! -x "$python" ]; then
+	echo "demo: no interpreter at $python - run 'uv sync --dev' first" >&2
+	exit 1
+fi
+
+exec "$python" "$repo/demo/fake_run.py" "$@"

@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Never let eol normalization near the recording. Auto-detection already
+# spots it as binary, but a corrupted GIF is silent until someone opens it.
+*.gif binary
