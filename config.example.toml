@@ -1,0 +1,19 @@
+# tg-bulk-leave configuration.
+#
+# Copy this file to the config location for your platform and edit it:
+#   macOS:    ~/Library/Application Support/tg-bulk-leave/config.toml
+#   Linux:    ~/.config/tg-bulk-leave/config.toml
+#   Windows:  %LOCALAPPDATA%\tg-bulk-leave\tg-bulk-leave\config.toml
+# (Run `tg-bulk-leave --help` — the exact path is printed at the bottom.)
+# Or keep it anywhere and pass `--config /path/to/config.toml`.
+#
+# Matching is a case-insensitive substring test against the chat title.
+# On the command line, --keyword REPLACES the keywords below for that run;
+# --protected ADDS to the protected list (protection can only grow).
+
+# Leave chats whose title contains any of these.
+keywords = ["old project", "airdrop"]
+
+# Never leave chats whose title contains any of these - protection always
+# wins over a keyword match. Use this as your safety net.
+protected = ["Family", "Work"]

@@ -1,0 +1,61 @@
+# --- Secrets and account data -------------------------------------------
+# The Telethon session is a live credential: full account access, no login code.
+*.session
+*.session-journal
+
+# Credentials
+.env
+
+# Run reports enumerate every chat the account belongs to
+reports/
+telegram_matches_*.csv
+telegram_left_*.csv
+
+# --- Local-only working documents ---------------------------------------
+# Strategy research and the phased roadmap stay out of the public repo.
+PLAN.md
+strategy.md
+
+# Agent instructions (both spellings; the filesystem may be case-sensitive)
+CLAUDE.md
+claude.md
+CLAUDE.local.md
+
+# Analysis and audit output
+.reports/
+
+# --- Python --------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Packaging / build
+build/
+dist/
+sdist/
+wheels/
+*.egg-info/
+*.egg
+.eggs/
+MANIFEST
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test, coverage, and tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+.cache
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.cover
+.hypothesis/
