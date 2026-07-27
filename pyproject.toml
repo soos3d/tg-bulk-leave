@@ -48,6 +48,12 @@ dev = [
     "ruff==0.14.5",
 ]
 
+[tool.hatch.build.targets.sdist]
+# Recording assets, not code: neither is importable, and the GIF alone would
+# add ~230KB to every download. The README refers to it by absolute URL, so
+# nothing inside the distribution needs it present.
+exclude = ["/demo", "/docs"]
+
 [tool.ruff]
 target-version = "py311"
 # Wide enough for the existing deliberate wrapping in cli.py, where several
