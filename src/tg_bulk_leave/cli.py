@@ -12,7 +12,7 @@ SETUP
    These are secrets and must never be committed. Exported environment
    variables take precedence over .env if you set both.
 4. Configure keywords, either per run:
-     tg-bulk-leave --keyword globex --protected "Globex Alumni"
+     tg-bulk-leave --keyword acme --protected "Acme Alumni"
    or persistently in the config file (see `config.example.toml`; the path is
    printed by --help and by the error you get when no keywords are set).
 5. Run it. First run asks for your phone number + the login code Telegram

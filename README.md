@@ -75,14 +75,14 @@ TG_API_HASH=your_api_hash_here
 Either per run, on the command line:
 
 ```bash
-tg-bulk-leave --keyword globex --protected "Globex Alumni"
+tg-bulk-leave --keyword acme --protected "Acme Alumni"
 ```
 
 or persistently in a TOML config file (see [`config.example.toml`](config.example.toml)):
 
 ```toml
-keywords  = ["globex"]           # leave chats matching any of these
-protected = ["Globex Alumni"]    # ...except these, always
+keywords  = ["acme", "airdrop"]   # leave chats matching any of these
+protected = ["Acme Alumni"]       # ...except these, always
 ```
 
 The file lives in your platform's config directory — `tg-bulk-leave --help`
@@ -109,10 +109,10 @@ tg-bulk-leave --execute
 `--execute` prints the full list, then requires you to type `LEAVE` (exact
 case) to proceed. Anything else aborts.
 
-**Read the dry run properly.** Substring matching casts a wide net — a keyword
-like `"acme"` also matches *Acme Physics Weekly*. Expand the protected
-list until the dry-run list contains only chats you're willing to lose, and use
-`--limit` for your first real run.
+**Read the dry run properly.** Substring matching casts a wide net, and a short
+keyword gets swallowed by longer words — `"art"` also matches *Smart Contract
+Devs*. Expand the protected list until the dry-run list contains only chats
+you're willing to lose, and use `--limit` for your first real run.
 
 ### First run
 
