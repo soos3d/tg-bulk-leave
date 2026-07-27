@@ -4,9 +4,17 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Trove classifiers now advertise Python 3.14, which CI has tested since
+  0.1.0 but the 0.1.0 metadata omitted.
+
 ## [0.1.0] - 2026-07-27
 
-First packaged release. Previously a personal single-file script.
+First packaged release, [published to PyPI](https://pypi.org/project/tg-bulk-leave/0.1.0/).
+Previously a personal single-file script.
 
 ### Added
 
@@ -38,3 +46,6 @@ First packaged release. Previously a personal single-file script.
 - Rate-limit pacing (2.5–5.0s between leaves), the FloodWait abort cap, CSV
   escaping, and per-iteration log flushing. These safety floors are not
   configurable, by design.
+
+[Unreleased]: https://github.com/soos3d/tg-bulk-leave/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/soos3d/tg-bulk-leave/releases/tag/v0.1.0

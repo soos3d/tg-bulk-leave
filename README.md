@@ -1,5 +1,9 @@
 # tg-bulk-leave
 
+[![PyPI](https://img.shields.io/pypi/v/tg-bulk-leave)](https://pypi.org/project/tg-bulk-leave/)
+[![CI](https://github.com/soos3d/tg-bulk-leave/actions/workflows/ci.yml/badge.svg)](https://github.com/soos3d/tg-bulk-leave/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/pypi/pyversions/tg-bulk-leave)](https://pypi.org/project/tg-bulk-leave/)
+
 Bulk-leave Telegram groups and channels whose title matches a keyword.
 
 Built for the situation where you've accumulated hundreds of chats — partner
@@ -37,7 +41,13 @@ uv tool install tg-bulk-leave        # recommended
 pipx install tg-bulk-leave
 ```
 
-Until the first PyPI release, install from a clone instead:
+Or run it without installing:
+
+```bash
+uvx tg-bulk-leave --keyword acme     # dry run, nothing installed permanently
+```
+
+To install from source instead:
 
 ```bash
 git clone https://github.com/soos3d/tg-bulk-leave && cd tg-bulk-leave
@@ -206,8 +216,8 @@ subclasses of `Chat` / `Channel`.
 This project is **free, open source, and local-first** — your session never
 leaves your machine, and that stays true.
 
-- **Now:** proper packaging (this release), then PyPI publication, CI, and a
-  `SECURITY.md`.
+- **Now:** 0.1.0 is on PyPI. Next up is whatever real use turns up — bug
+  reports and rough edges take priority over new features.
 - **Later, maybe:** an optional hosted service for *recurring* cleanup (e.g.
   auto-leave groups with no activity for 30+ days), which needs an always-on
   machine. If that ever ships, it will be a separate opt-in product; the CLI
