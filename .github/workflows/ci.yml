@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # release.yml calls this workflow before it publishes, so a release runs the
+  # same matrix as a pull request rather than a copy of it that can drift.
+  workflow_call:
 
 permissions:
   contents: read
