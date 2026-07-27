@@ -1,0 +1,13 @@
+# Blank issues stay on. A stranger with a question they can't fit into a form
+# should not hit a wall; a high-friction tracker measures the friction, not
+# the demand.
+blank_issues_enabled: true
+
+contact_links:
+  - name: Would you want recurring / scheduled cleanup?
+    url: https://github.com/soos3d/tg-bulk-leave/issues/4
+    about: The open question this project is trying to answer. A 👍 counts.
+
+  - name: Report a security vulnerability
+    url: https://github.com/soos3d/tg-bulk-leave/security/advisories/new
+    about: Privately, not as a public issue. See SECURITY.md for the threat model.

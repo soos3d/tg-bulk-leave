@@ -1,0 +1,72 @@
+name: Bug report
+description: Something behaved differently from what the README describes
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time. Before you paste anything:
+
+        **Redact your chat titles.** The dry run prints the name of every
+        group you're in, and this tracker is public. Replace real names with
+        `Group A`, `Group B` — the structure is what matters for debugging,
+        not the names.
+
+        Never paste your `api_hash`, your session file, or a generated CSV.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you expect, and what did you get instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: The command you ran
+      description: Redact keywords too if they identify you or your employer.
+      placeholder: tg-bulk-leave --keyword acme --execute --limit 5
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: >
+        The relevant part, with chat titles redacted. If it's a traceback,
+        the whole traceback.
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: >
+        From `uv tool list`, `pipx list`, or `pip show tg-bulk-leave`.
+        If you installed from source, the commit.
+      placeholder: "0.1.1"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: OS and Python version
+      placeholder: "macOS 15.2, Python 3.13, installed with uv tool install"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: destructive
+    attributes:
+      label: Did this affect chats you didn't intend to leave?
+      description: >
+        If so, say so here and in the summary. That's the failure mode this
+        project cares about most, and it gets looked at first.
+      options:
+        - label: A chat was left that I did not intend to leave
+        - label: Dry run and `--execute` disagreed about what would be left
