@@ -22,6 +22,13 @@ First packaged release. Previously a personal single-file script.
   exactly what to create and where; a typoed config key is rejected instead of
   silently matching nothing.
 - MIT license.
+- Project infrastructure for a public release: GitHub Actions CI (pytest on
+  Python 3.11–3.14, `ruff check`, and a build smoke test of the wheel's entry
+  point), a tag-triggered release workflow publishing to PyPI via Trusted
+  Publishing, `SECURITY.md` documenting the session-file threat model, and
+  `CONTRIBUTING.md` recording the safety invariants a change must not break.
+- Dependencies locked in `uv.lock`; the dev toolchain moved from
+  `requirements.txt` into a PEP 735 `dev` dependency group (`uv sync --dev`).
 
 ### Unchanged (deliberately)
 

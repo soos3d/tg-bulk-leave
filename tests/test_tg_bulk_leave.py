@@ -20,7 +20,6 @@ from telethon.tl.types import (
 
 from tg_bulk_leave import cli as tbl
 
-
 # ------------------------------------------------------------- helpers ----
 
 

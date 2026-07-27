@@ -40,7 +40,7 @@ pipx install tg-bulk-leave
 Until the first PyPI release, install from a clone instead:
 
 ```bash
-git clone <repo-url> && cd leave-tg-groups
+git clone https://github.com/soos3d/tg-bulk-leave && cd tg-bulk-leave
 uv tool install .                    # or: pipx install .
 ```
 
@@ -177,12 +177,15 @@ open the report in a spreadsheet.
 ## Development
 
 ```bash
-git clone <repo-url> && cd leave-tg-groups
-python3 -m venv .venv
-.venv/bin/pip install -e . -r requirements.txt
+git clone https://github.com/soos3d/tg-bulk-leave && cd tg-bulk-leave
+uv sync --dev
 
-.venv/bin/python -m pytest        # coverage gate at 80%, configured in pyproject.toml
+uv run pytest        # coverage gate at 80%, configured in pyproject.toml
+uv run ruff check
 ```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the safety invariants a change must
+not break, and [SECURITY.md](SECURITY.md) for the threat model.
 
 The suite covers the logic that decides *what gets left*: keyword/protected
 precedence, config loading and flag semantics, entity classification, the

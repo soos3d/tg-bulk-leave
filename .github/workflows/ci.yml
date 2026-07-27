@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v9
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      # --locked fails if uv.lock is out of date with pyproject.toml, so a
+      # dependency bump can never land unlocked.
+      - name: Install
+        run: uv sync --locked --dev
+
+      # The 80% coverage gate lives in [tool.coverage.report] and fails here.
+      - name: Test
+        run: uv run pytest
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v9
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install
+        run: uv sync --locked --dev
+
+      # Lint only. There is deliberately no `ruff format` gate: several lines in
+      # cli.py are hand-wrapped so the rationale for a safety decision reads well.
+      - name: Ruff
+        run: uv run ruff check
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v9
+
+      - name: Build wheel and sdist
+        run: uv build
+
+      # A broken entry point should fail here, not on a user's first install.
+      - name: Smoke-test the built wheel
+        run: |
+          uv venv /tmp/smoke
+          uv pip install --python /tmp/smoke/bin/python dist/*.whl
+          /tmp/smoke/bin/tg-bulk-leave --help
