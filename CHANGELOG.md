@@ -6,10 +6,25 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-27
+
+A metadata and packaging release. **Nothing about what gets left, or how, has
+changed** — no behaviour differences from 0.1.0.
+
 ### Fixed
 
 - Trove classifiers now advertise Python 3.14, which CI has tested since
   0.1.0 but the 0.1.0 metadata omitted.
+
+### Changed
+
+- The source distribution no longer ships the demo recording assets
+  (`demo/`, `docs/`), which are development tooling and added ~230KB to
+  every download. The wheel was never affected.
+
+### Added
+
+- A demo GIF at the top of the README, recorded against fabricated chats.
 
 ## [0.1.0] - 2026-07-27
 
@@ -47,5 +62,6 @@ Previously a personal single-file script.
   escaping, and per-iteration log flushing. These safety floors are not
   configurable, by design.
 
-[Unreleased]: https://github.com/soos3d/tg-bulk-leave/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/soos3d/tg-bulk-leave/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/soos3d/tg-bulk-leave/releases/tag/v0.1.1
 [0.1.0]: https://github.com/soos3d/tg-bulk-leave/releases/tag/v0.1.0
