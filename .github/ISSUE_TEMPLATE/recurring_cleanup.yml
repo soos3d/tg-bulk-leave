@@ -1,0 +1,70 @@
+name: I'd want recurring / scheduled cleanup
+description: Tell me you'd use automatic cleanup, and roughly how
+labels: ["recurring-cleanup"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The CLI is something you run when you remember to. A few people have
+        asked about the version that just keeps your account tidy on its own —
+        leaving stale groups on a schedule without you thinking about it.
+
+        That needs an always-on machine, which the CLI deliberately isn't. So
+        before building it I'd like to know whether anyone actually wants it.
+        Every answer here is a real data point; the fields are short on purpose
+        and all of them are optional except the first.
+
+        **The CLI stays free, open source, and local-first either way.**
+
+  - type: dropdown
+    id: cadence
+    attributes:
+      label: How often would you want it to run?
+      options:
+        - Daily
+        - Weekly
+        - Monthly
+        - Only when I trigger it
+        - Not sure yet
+    validations:
+      required: true
+
+  - type: input
+    id: scale
+    attributes:
+      label: Roughly how many chats are you in?
+      placeholder: "about 300, maybe 40 worth leaving"
+
+  - type: textarea
+    id: rule
+    attributes:
+      label: What should make a chat get left automatically?
+      description: >
+        Keyword is what the CLI does today. "No activity in 30 days", "I've
+        never posted in it", and "muted and archived" are the other three
+        people tend to name — but describe yours however it actually works in
+        your head.
+      placeholder: "No messages in 60 days AND I've never posted"
+
+  - type: dropdown
+    id: willingness
+    attributes:
+      label: Would you pay for a hosted version of that?
+      description: >
+        Answering "no" is genuinely useful and won't cost you anything — a
+        clear no is better evidence than silence.
+      options:
+        - "Yes"
+        - "Maybe, depends on the price"
+        - "No — I'd only use it if it were free"
+        - "No — I wouldn't hand over a session at all"
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        On that last option: a hosted service can't use scoped permissions.
+        Telegram offers no "may leave groups" grant — it's a full account
+        session or nothing. If a hosted version is ever built, that trade-off
+        gets documented up front, and the CLI will always remain the answer
+        for anyone who doesn't want to make it.

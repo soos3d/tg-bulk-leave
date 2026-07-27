@@ -238,8 +238,9 @@ your machine, and that stays true.
 - **Later, maybe:** an optional hosted service for *recurring* cleanup (say,
   auto-leaving groups with no activity for 30+ days), which needs an always-on
   machine. If it ever ships it'll be a separate opt-in product, and the CLI
-  stays free and fully local. If you'd want that, open an issue. That's how
-  demand gets measured.
+  stays free and fully local. Whether it gets built depends on whether anyone
+  says they'd use it — [that question is open here](https://github.com/soos3d/tg-bulk-leave/issues/4),
+  and a 👍 counts. "I wouldn't use it" is worth saying too.
 
 ## License
 
