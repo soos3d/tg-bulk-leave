@@ -5,6 +5,8 @@ group is irreversible. Network calls are deliberately not exercised; the point
 is the matching, classification and escaping that guard the destructive call.
 """
 
+import importlib.metadata
+
 import pytest
 from telethon import errors
 from telethon.tl.functions.channels import LeaveChannelRequest
@@ -888,6 +890,41 @@ class TestParseArgs:
                                "-p", "c", "--protected", "d"])
         assert args.keywords == ["a", "b"]
         assert args.protected == ["c", "d"]
+
+
+class TestVersion:
+    """--version exists so a bug report can name the code it came from.
+
+    A reporter who cannot say which version they ran turns every issue into a
+    round trip, and the answer has to come from the installed distribution
+    rather than a constant in the source: a literal would drift from
+    pyproject.toml exactly when it matters, on the release that forgot it.
+    """
+
+    def test_version_matches_the_installed_distribution(self):
+        assert tbl.package_version() == importlib.metadata.version("tg-bulk-leave")
+
+    def test_version_flag_prints_it_and_exits_cleanly(self, capsys):
+        with pytest.raises(SystemExit) as exit_info:
+            tbl.parse_args(["--version"])
+        assert exit_info.value.code == 0
+        assert tbl.package_version() in capsys.readouterr().out
+
+    def test_running_from_source_does_not_crash(self, monkeypatch):
+        """Uninstalled checkouts must still get a --version, not a traceback."""
+        def not_installed(name):
+            raise importlib.metadata.PackageNotFoundError(name)
+
+        monkeypatch.setattr(tbl.importlib.metadata, "version", not_installed)
+        assert "unknown" in tbl.package_version()
+
+    def test_version_needs_no_config(self, tmp_path, monkeypatch):
+        """It answers before keywords are resolved, so a fresh install can ask."""
+        monkeypatch.setattr(tbl, "default_config_path",
+                            lambda: str(tmp_path / "absent.toml"))
+        with pytest.raises(SystemExit) as exit_info:
+            tbl.entrypoint(["--version"])
+        assert exit_info.value.code == 0
 
 
 class TestEntrypoint:

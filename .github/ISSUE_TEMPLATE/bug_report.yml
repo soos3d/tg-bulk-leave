@@ -46,8 +46,8 @@ body:
     attributes:
       label: Version
       description: >
-        From `uv tool list`, `pipx list`, or `pip show tg-bulk-leave`.
-        If you installed from source, the commit.
+        Output of `tg-bulk-leave --version`. If you installed from source,
+        the commit.
       placeholder: "0.1.1"
     validations:
       required: true

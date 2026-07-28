@@ -6,6 +6,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- `--version`, reporting the installed version. Read from the installed
+  distribution rather than a constant in the source, so it cannot drift from
+  the released metadata. A source checkout that was never installed says so
+  instead of failing.
+
 ## [0.1.1] - 2026-07-27
 
 A metadata and packaging release. **Nothing about what gets left, or how, has

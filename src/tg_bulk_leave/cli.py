@@ -33,6 +33,7 @@ Always run the dry run first and read the output.
 import argparse
 import asyncio
 import csv
+import importlib.metadata
 import os
 import random
 import sys
@@ -99,6 +100,21 @@ class ConfigError(RuntimeError):
 
 class FloodWaitTooLong(RuntimeError):
     """Raised when Telegram asks for a wait longer than we are willing to sit out."""
+
+
+def package_version() -> str:
+    """The installed version, for --version and for bug reports.
+
+    Read from the installed distribution rather than kept as a constant here:
+    a literal would drift from pyproject.toml on exactly the release that
+    forgot to update it, and a wrong version in a bug report is worse than
+    none. A checkout that was never installed still answers, since asking
+    "what am I running" is reasonable before anything else works.
+    """
+    try:
+        return importlib.metadata.version(APP_NAME)
+    except importlib.metadata.PackageNotFoundError:
+        return "unknown (running from a source checkout, not installed)"
 
 
 def default_config_path() -> str:
@@ -509,6 +525,11 @@ def parse_args(argv=None):
                "(command-line --keyword replaces its keywords; "
                "--protected adds to its protected list)",
     )
+    # argparse answers this and exits before any config is read, so a fresh
+    # install can be identified without being configured first.
+    parser.add_argument("--version", action="version",
+                        version=f"%(prog)s {package_version()}",
+                        help="print the installed version and exit")
     parser.add_argument("--execute", action="store_true",
                         help="actually leave the chats (default is a dry run)")
     parser.add_argument("--limit", type=int, default=None,
