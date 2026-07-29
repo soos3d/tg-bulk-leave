@@ -1,0 +1,73 @@
+name: "release2reel"
+description: "Turn the published release's notes into a product-update video with the Runway API and attach it to the release"
+author: "Davide Zambiasi"
+branding:
+  icon: "film"
+  color: "purple"
+
+inputs:
+  runway_api_secret:
+    description: "Runway API secret (https://dev.runwayml.com)"
+    required: true
+  anthropic_api_key:
+    description: "Anthropic API key — enables LLM-written shot lists; templates are used when omitted"
+    required: false
+    default: ""
+  scenes:
+    description: "Max scenes / highlights"
+    required: false
+    default: "3"
+  seconds:
+    description: "Seconds per scene (2-10)"
+    required: false
+    default: "5"
+  project:
+    description: "Project name for the title card (defaults to the repository name)"
+    required: false
+    default: ""
+  github_token:
+    description: "Token used to upload the release asset"
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install ffmpeg
+      shell: bash
+      run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+    - name: Install release2reel
+      shell: bash
+      run: pip install --quiet "git+https://github.com/soos3d/release2reel.git@${{ github.action_ref }}"
+
+    - name: Generate release video
+      shell: bash
+      env:
+        RUNWAYML_API_SECRET: ${{ inputs.runway_api_secret }}
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic_api_key }}
+        RELEASE_BODY: ${{ github.event.release.body }}
+        TAG: ${{ github.event.release.tag_name }}
+      run: |
+        printf '%s' "$RELEASE_BODY" > /tmp/release-body.md
+        EXTRA=()
+        [ -z "$ANTHROPIC_API_KEY" ] && EXTRA+=(--no-llm)
+        release2reel /tmp/release-body.md \
+          --tag "$TAG" \
+          --project "${{ inputs.project != '' && inputs.project || github.event.repository.name }}" \
+          --scenes "${{ inputs.scenes }}" \
+          --seconds "${{ inputs.seconds }}" \
+          --out out \
+          "${EXTRA[@]}"
+
+    - name: Attach video to the release
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        TAG: ${{ github.event.release.tag_name }}
+      run: gh release upload "$TAG" "out/$TAG.mp4" "out/$TAG.gif" --repo "${{ github.repository }}" --clobber
